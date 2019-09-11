@@ -196,8 +196,6 @@ public class NavigationBar extends CordovaPlugin {
 
 	private void _showNavigationBar() {
 		Activity activity=cordova.getActivity();
-		int mBaseSystemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            | SYSTEM_UI_FLAG_LAYOUT_STABLE;
-		activity.getWindow().getDecorView().setSystemUiVisibility(mBaseSystemUiVisibility);
+		activity.getWindow().getDecorView().setSystemUiVisibility(0);
     }
 }
