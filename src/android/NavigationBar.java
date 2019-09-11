@@ -167,17 +167,18 @@ public class NavigationBar extends CordovaPlugin {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
 	private void _hideNavigationBar(){
 		int newVis = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-		| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+		| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 		//| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 		//| View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-		//| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+		| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 		Activity activity=cordova.getActivity();
 		activity.getWindow().getDecorView().setSystemUiVisibility(newVis);	
 	}
 
 
 	private void _showNavigationBar() {
+		int newVis = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 		Activity activity=cordova.getActivity();
-		activity.getWindow().getDecorView().setSystemUiVisibility(0);
+		activity.getWindow().getDecorView().setSystemUiVisibility(newVis);
     }
 }
