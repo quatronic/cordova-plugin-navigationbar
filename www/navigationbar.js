@@ -17,5 +17,14 @@ module.exports = {
             'hideNavigationBar',
             []
         ); 
+    },
+    showNavigationBar: function(successCallback, errorCallback) {
+        cordova.exec(
+            successCallback,
+            errorCallback,
+            'NavigationBar',
+            'showNavigationBar',
+            []
+        ); 
     }
 };

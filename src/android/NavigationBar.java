@@ -91,6 +91,28 @@ public class NavigationBar extends CordovaPlugin {
 			
 			return true;
 		}
+		else if (action.equals("showNavigationBar")) {
+			//Activity activity=cordova.getActivity();
+			//webView
+			//
+			
+			final CallbackContext delayedCC = callbackContext;
+			cordova.getActivity().runOnUiThread(new Runnable(){
+				@Override
+				public void run() {						
+					_showNavigationBar();
+					
+					PluginResult pr = new PluginResult(PluginResult.Status.OK);
+					//pr.setKeepCallback(true);
+					delayedCC.sendPluginResult(pr);
+					//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+					//pr.setKeepCallback(true);
+					//delayedCC.sendPluginResult(pr);					
+				}
+			});	
+			
+			return true;
+		}
 				
 		return false; // Returning false results in a "MethodNotFound" error.
 	}
@@ -170,4 +192,10 @@ public class NavigationBar extends CordovaPlugin {
 			| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 		);	
 	}
+
+
+	private void _showNavigationBar() {
+        Activity activity=cordova.getActivity();
+		activity.getWindow().getDecorView().setSystemUiVisibility(true);
+    }
 }
