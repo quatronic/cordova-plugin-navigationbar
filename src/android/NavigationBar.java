@@ -51,12 +51,13 @@ public class NavigationBar extends CordovaPlugin {
 
 			final boolean autoHideNavigationBar = args.getBoolean(0);
 			final boolean enableImmersiveSticky = args.getBoolean(1);
+			final boolean hideStatusBar = args.getBoolean(2);
 
 			final CallbackContext delayedCC = callbackContext;
 			cordova.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					_setUp(autoHideNavigationBar, enableImmersiveSticky);
+					_setUp(autoHideNavigationBar, enableImmersiveSticky, hideStatusBar);
 
 					PluginResult pr = new PluginResult(PluginResult.Status.OK);
 					// pr.setKeepCallback(true);
@@ -71,12 +72,13 @@ public class NavigationBar extends CordovaPlugin {
 		} else if (action.equals("hideNavigationBar")) {
 
 			final boolean enableImmersiveSticky = args.getBoolean(0);
+			final boolean hideStatusBar = args.getBoolean(1);
 
 			final CallbackContext delayedCC = callbackContext;
 			cordova.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					_hideNavigationBar(enableImmersiveSticky);
+					_hideNavigationBar(enableImmersiveSticky,hideStatusBar);
 
 					PluginResult pr = new PluginResult(PluginResult.Status.OK);
 					// pr.setKeepCallback(true);
@@ -149,9 +151,9 @@ public class NavigationBar extends CordovaPlugin {
 	// -------------------------------------
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void _setUp(boolean autoHideNavigationBar, boolean enableImmersiveSticky) {
+	private void _setUp(boolean autoHideNavigationBar, boolean enableImmersiveSticky, boolean hideStatusBar) {
 		if (autoHideNavigationBar) {
-			_hideNavigationBar(enableImmersiveSticky);
+			_hideNavigationBar(enableImmersiveSticky,hideStatusBar);
 
 			final CordovaInterface cordova_final = cordova;
 			// http://stackoverflow.com/questions/11762306/listen-for-first-touchevent-when-using-system-ui-flag-hide-navigation
@@ -171,7 +173,7 @@ public class NavigationBar extends CordovaPlugin {
 						handler.postDelayed(new Runnable() {
 							@Override
 							public void run() {
-								_hideNavigationBar(enableImmersiveSticky);
+								_hideNavigationBar(enableImmersiveSticky,hideStatusBar);
 							}
 						}, 3000);// after ms
 					}
@@ -198,10 +200,13 @@ public class NavigationBar extends CordovaPlugin {
 	}
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void _hideNavigationBar(boolean enableImmersiveSticky) {
+	private void _hideNavigationBar(boolean enableImmersiveSticky, boolean hideStatusBar) {
 		Activity activity = cordova.getActivity();
 		View decorView = activity.getWindow().getDecorView();
 		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+		if(hideStatusBar){
+			uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+		}
 		if (enableImmersiveSticky) {
 			uiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 		}
