@@ -227,12 +227,6 @@ public class NavigationBar extends CordovaPlugin {
 		} catch(Exception e) {
 			//do nothing	
 		}
-		try {
-			ActionBar actionBar = activity.getSupportActionBar();
-			actionBar.hide();
-		} catch(Exception e) {
-			//do nothing	
-		}
 	}
 
 	private void _dimStatusAndNavBars() {
