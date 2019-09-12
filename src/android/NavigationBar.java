@@ -14,6 +14,7 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaWebView;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActionBar;
 import android.os.Build;
 import android.util.Log;
 //
