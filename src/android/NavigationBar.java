@@ -216,8 +216,8 @@ public class NavigationBar extends CordovaPlugin {
 		decorView.setSystemUiVisibility(uiOptions);
 		// Remember that you should never show the action bar if the
 		// status bar is hidden, so hide that too if necessary.
-		ActionBar actionBar = activity.getActionBar();
-		actionBar.hide();
+		//ActionBar actionBar = activity.getActionBar();
+		//actionBar.hide();
 	}
 
 	private void _dimStatusAndNavBars() {
