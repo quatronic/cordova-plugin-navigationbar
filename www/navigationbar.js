@@ -1,12 +1,12 @@
 module.exports = {
    
-    setUp: function(autoHideNavigationBar, successCallback, errorCallback) {
+    setUp: function(autoHideNavigationBar, enableImmersiveSticky, successCallback, errorCallback) {
         cordova.exec(
             successCallback,
             errorCallback,
             'NavigationBar',
             'setUp',
-            [autoHideNavigationBar]
+            [autoHideNavigationBar, enableImmersiveSticky]
         ); 
     },
     hideNavigationBar: function(enableImmersiveSticky, successCallback, errorCallback) {

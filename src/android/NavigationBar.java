@@ -152,9 +152,9 @@ public class NavigationBar extends CordovaPlugin {
 	//-------------------------------------
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-	private void _setUp(boolean autoHideNavigationBar){
+	private void _setUp(boolean autoHideNavigationBar, boolean enableImmersiveSticky){
 		if (autoHideNavigationBar) {
-			_hideNavigationBar();							
+			_hideNavigationBar(enableImmersiveSticky);							
 		
 			final CordovaInterface cordova_final = cordova;
 			//http://stackoverflow.com/questions/11762306/listen-for-first-touchevent-when-using-system-ui-flag-hide-navigation
