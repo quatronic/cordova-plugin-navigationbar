@@ -91,7 +91,7 @@ public class NavigationBar extends CordovaPlugin {
 			
 			return true;
 		}
-		else if (action.equals("showNavigationBar")) {
+		else if (action.equals("reset")) {
 			//Activity activity=cordova.getActivity();
 			//webView
 			//
@@ -100,7 +100,7 @@ public class NavigationBar extends CordovaPlugin {
 			cordova.getActivity().runOnUiThread(new Runnable(){
 				@Override
 				public void run() {						
-					_showNavigationBar();
+					_reset();
 					
 					PluginResult pr = new PluginResult(PluginResult.Status.OK);
 					//pr.setKeepCallback(true);
@@ -236,8 +236,8 @@ public class NavigationBar extends CordovaPlugin {
 		actionBar.hide();
 	}
 
-	private void _showNavigationBar() {
-		int newVis = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+	private void _reset() {
+		int newVis = 0;
 		Activity activity=cordova.getActivity();
 		activity.getWindow().getDecorView().setSystemUiVisibility(newVis);
     }

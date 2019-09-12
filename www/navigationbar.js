@@ -18,12 +18,12 @@ module.exports = {
             []
         ); 
     },
-    showNavigationBar: function(successCallback, errorCallback) {
+    reset: function(successCallback, errorCallback) {
         cordova.exec(
             successCallback,
             errorCallback,
             'NavigationBar',
-            'showNavigationBar',
+            'reset',
             []
         ); 
     },
