@@ -113,6 +113,50 @@ public class NavigationBar extends CordovaPlugin {
 			
 			return true;
 		}
+		else if (action.equals("enableImmersiveSticky")) {
+			//Activity activity=cordova.getActivity();
+			//webView
+			//
+			
+			final CallbackContext delayedCC = callbackContext;
+			cordova.getActivity().runOnUiThread(new Runnable(){
+				@Override
+				public void run() {						
+					_enableImmersiveSticky();
+					
+					PluginResult pr = new PluginResult(PluginResult.Status.OK);
+					//pr.setKeepCallback(true);
+					delayedCC.sendPluginResult(pr);
+					//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+					//pr.setKeepCallback(true);
+					//delayedCC.sendPluginResult(pr);					
+				}
+			});	
+			
+			return true;
+		}
+		else if (action.equals("hideStatusBar")) {
+			//Activity activity=cordova.getActivity();
+			//webView
+			//
+			
+			final CallbackContext delayedCC = callbackContext;
+			cordova.getActivity().runOnUiThread(new Runnable(){
+				@Override
+				public void run() {						
+					_hideStatusBar();
+					
+					PluginResult pr = new PluginResult(PluginResult.Status.OK);
+					//pr.setKeepCallback(true);
+					delayedCC.sendPluginResult(pr);
+					//PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+					//pr.setKeepCallback(true);
+					//delayedCC.sendPluginResult(pr);					
+				}
+			});	
+			
+			return true;
+		}
 				
 		return false; // Returning false results in a "MethodNotFound" error.
 	}
@@ -166,16 +210,31 @@ public class NavigationBar extends CordovaPlugin {
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
 	private void _hideNavigationBar(){
-		int newVis = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-		| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-		//| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-		//| View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-		| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-		| View.SYSTEM_UI_FLAG_VISIBLE;
-		Activity activity=cordova.getActivity();
-		activity.getWindow().getDecorView().setSystemUiVisibility(newVis);	
+		Activity activity = cordova.getActivity();
+		View decorView = activity.getWindow().getDecorView();
+		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+		| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+		decorView.setSystemUiVisibility(uiOptions);
 	}
 
+	private void _enableImmersiveSticky() {
+		Activity activity = cordova.getActivity();
+		View decorView = activity.getWindow().getDecorView();
+		int uiOptions = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+		decorView.setSystemUiVisibility(uiOptions);
+	}
+
+	private void _hideStatusBar() {
+		Activity activity = cordova.getActivity();
+		View decorView = activity.getWindow().getDecorView();
+		// Hide the status bar.
+		int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+		decorView.setSystemUiVisibility(uiOptions);
+		// Remember that you should never show the action bar if the
+		// status bar is hidden, so hide that too if necessary.
+		ActionBar actionBar = getActionBar();
+		actionBar.hide();
+	}
 
 	private void _showNavigationBar() {
 		int newVis = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;

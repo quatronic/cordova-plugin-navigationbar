@@ -26,5 +26,23 @@ module.exports = {
             'showNavigationBar',
             []
         ); 
+    },
+    enableImmersiveSticky: function(successCallback, errorCallback) {
+        cordova.exec(
+            successCallback,
+            errorCallback,
+            'NavigationBar',
+            'enableImmersiveSticky',
+            []
+        ); 
+    },
+    hideStatusBar: function(successCallback, errorCallback) {
+        cordova.exec(
+            successCallback,
+            errorCallback,
+            'NavigationBar',
+            'hideStatusBar',
+            []
+        ); 
     }
 };
