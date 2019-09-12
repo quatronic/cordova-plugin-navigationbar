@@ -48,9 +48,7 @@ public class NavigationBar extends CordovaPlugin {
 		//JSONObject inJson = json.optJSONObject("inJson");
 			
 		if (action.equals("setUp")) {
-			//Activity activity = cordova.getActivity();
-			//webView
-			//
+
 			final boolean autoHideNavigationBar = args.getBoolean(0);
 			
 			final CallbackContext delayedCC = callbackContext;
@@ -71,15 +69,14 @@ public class NavigationBar extends CordovaPlugin {
 			return true;
 		}
 		else if (action.equals("hideNavigationBar")) {
-			//Activity activity=cordova.getActivity();
-			//webView
-			//
 			
+			final boolean enableImmersiveSticky = args.getBoolean(0);
+
 			final CallbackContext delayedCC = callbackContext;
 			cordova.getActivity().runOnUiThread(new Runnable(){
 				@Override
 				public void run() {						
-					_hideNavigationBar();
+					_hideNavigationBar(enableImmersiveSticky);
 					
 					PluginResult pr = new PluginResult(PluginResult.Status.OK);
 					//pr.setKeepCallback(true);
@@ -93,9 +90,6 @@ public class NavigationBar extends CordovaPlugin {
 			return true;
 		}
 		else if (action.equals("reset")) {
-			//Activity activity=cordova.getActivity();
-			//webView
-			//
 			
 			final CallbackContext delayedCC = callbackContext;
 			cordova.getActivity().runOnUiThread(new Runnable(){
@@ -114,16 +108,13 @@ public class NavigationBar extends CordovaPlugin {
 			
 			return true;
 		}
-		else if (action.equals("enableImmersiveSticky")) {
-			//Activity activity=cordova.getActivity();
-			//webView
-			//
+		else if (action.equals("hideStatusBar")) {
 			
 			final CallbackContext delayedCC = callbackContext;
 			cordova.getActivity().runOnUiThread(new Runnable(){
 				@Override
 				public void run() {						
-					_enableImmersiveSticky();
+					_hideStatusBar();
 					
 					PluginResult pr = new PluginResult(PluginResult.Status.OK);
 					//pr.setKeepCallback(true);
@@ -136,16 +127,13 @@ public class NavigationBar extends CordovaPlugin {
 			
 			return true;
 		}
-		else if (action.equals("hideStatusBar")) {
-			//Activity activity=cordova.getActivity();
-			//webView
-			//
+		else if (action.equals("dimStatusAndNavBars")) {
 			
 			final CallbackContext delayedCC = callbackContext;
 			cordova.getActivity().runOnUiThread(new Runnable(){
 				@Override
 				public void run() {						
-					_hideStatusBar();
+					_dimStatusAndNavBars();
 					
 					PluginResult pr = new PluginResult(PluginResult.Status.OK);
 					//pr.setKeepCallback(true);
@@ -210,18 +198,14 @@ public class NavigationBar extends CordovaPlugin {
 	}
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB) 
-	private void _hideNavigationBar(){
+	private void _hideNavigationBar(boolean enableImmersiveSticky){
 		Activity activity = cordova.getActivity();
 		View decorView = activity.getWindow().getDecorView();
 		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 		| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
-		decorView.setSystemUiVisibility(uiOptions);
-	}
-
-	private void _enableImmersiveSticky() {
-		Activity activity = cordova.getActivity();
-		View decorView = activity.getWindow().getDecorView();
-		int uiOptions = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+		if(enableImmersiveSticky){
+			uiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+		}
 		decorView.setSystemUiVisibility(uiOptions);
 	}
 
@@ -235,6 +219,13 @@ public class NavigationBar extends CordovaPlugin {
 		// status bar is hidden, so hide that too if necessary.
 		ActionBar actionBar = activity.getActionBar();
 		actionBar.hide();
+	}
+
+	private void _dimStatusAndNavBars() {
+		Activity activity = cordova.getActivity();
+		View decorView = activity.getWindow().getDecorView();
+		int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE;
+		decorView.setSystemUiVisibility(uiOptions);
 	}
 
 	private void _reset() {
