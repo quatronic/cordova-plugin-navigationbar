@@ -49,8 +49,8 @@ public class NavigationBar extends CordovaPlugin {
 
 		if (action.equals("autoHide")) {
 
-			final boolean enableImmersiveSticky = args.getBoolean(1);
-			final boolean hideStatusBar = args.getBoolean(2);
+			final boolean enableImmersiveSticky = args.getBoolean(0);
+			final boolean hideStatusBar = args.getBoolean(1);
 
 			final CallbackContext delayedCC = callbackContext;
 			cordova.getActivity().runOnUiThread(new Runnable() {
