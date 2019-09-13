@@ -47,9 +47,8 @@ public class NavigationBar extends CordovaPlugin {
 		// json.optString("adUnitFullScreen")
 		// JSONObject inJson = json.optJSONObject("inJson");
 
-		if (action.equals("setUp")) {
+		if (action.equals("autoHide")) {
 
-			final boolean autoHideNavigationBar = args.getBoolean(0);
 			final boolean enableImmersiveSticky = args.getBoolean(1);
 			final boolean hideStatusBar = args.getBoolean(2);
 
@@ -57,7 +56,7 @@ public class NavigationBar extends CordovaPlugin {
 			cordova.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					_setUp(autoHideNavigationBar, enableImmersiveSticky, hideStatusBar);
+					_autoHide(enableImmersiveSticky, hideStatusBar);
 
 					PluginResult pr = new PluginResult(PluginResult.Status.OK);
 					// pr.setKeepCallback(true);
@@ -78,7 +77,7 @@ public class NavigationBar extends CordovaPlugin {
 			cordova.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
-					_hideNavigationBar(enableImmersiveSticky,hideStatusBar);
+					_hideNavigationBar(enableImmersiveSticky, hideStatusBar);
 
 					PluginResult pr = new PluginResult(PluginResult.Status.OK);
 					// pr.setKeepCallback(true);
@@ -169,35 +168,34 @@ public class NavigationBar extends CordovaPlugin {
 	// -------------------------------------
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void _setUp(boolean autoHideNavigationBar, boolean enableImmersiveSticky, boolean hideStatusBar) {
-		if (autoHideNavigationBar) {
-			_hideNavigationBar(enableImmersiveSticky,hideStatusBar);
+	private void _autoHide(boolean enableImmersiveSticky, boolean hideStatusBar) {
 
-			final CordovaInterface cordova_final = cordova;
-			// http://stackoverflow.com/questions/11762306/listen-for-first-touchevent-when-using-system-ui-flag-hide-navigation
-			// http://stackoverflow.com/questions/15103339/android-full-screen-modeics-first-touch-shows-the-navigation-bar
-			// http://developer.android.com/reference/android/view/View.OnSystemUiVisibilityChangeListener.html
-			// webView.setOnSystemUiVisibilityChangeListener(new
-			// View.OnSystemUiVisibilityChangeListener(){//cordova5 build error
-			getView(webView).setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {// fixed
-																													// cordova5
-																													// build
-																													// error
-				@Override
-				public void onSystemUiVisibilityChange(int vis) {
-					if (vis == 0) {
-						// http://stackoverflow.com/questions/3072173/how-to-call-a-method-after-a-delay-in-android
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
-							@Override
-							public void run() {
-								_hideNavigationBar(enableImmersiveSticky,hideStatusBar);
-							}
-						}, 3000);// after ms
-					}
+		_hideNavigationBar(enableImmersiveSticky, hideStatusBar);
+
+		final CordovaInterface cordova_final = cordova;
+		// http://stackoverflow.com/questions/11762306/listen-for-first-touchevent-when-using-system-ui-flag-hide-navigation
+		// http://stackoverflow.com/questions/15103339/android-full-screen-modeics-first-touch-shows-the-navigation-bar
+		// http://developer.android.com/reference/android/view/View.OnSystemUiVisibilityChangeListener.html
+		// webView.setOnSystemUiVisibilityChangeListener(new
+		// View.OnSystemUiVisibilityChangeListener(){//cordova5 build error
+		getView(webView).setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {// fixed
+																												// cordova5
+																												// build
+																												// error
+			@Override
+			public void onSystemUiVisibilityChange(int vis) {
+				if (vis == 0) {
+					// http://stackoverflow.com/questions/3072173/how-to-call-a-method-after-a-delay-in-android
+					Handler handler = new Handler();
+					handler.postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							_hideNavigationBar(enableImmersiveSticky, hideStatusBar);
+						}
+					}, 3000);// after ms
 				}
-			});
-		}
+			}
+		});
 	}
 
 	public static View getView(CordovaWebView webView) {
@@ -222,7 +220,7 @@ public class NavigationBar extends CordovaPlugin {
 		Activity activity = cordova.getActivity();
 		View decorView = activity.getWindow().getDecorView();
 		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
-		if(hideStatusBar){
+		if (hideStatusBar) {
 			uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
 		}
 		if (enableImmersiveSticky) {
@@ -242,8 +240,8 @@ public class NavigationBar extends CordovaPlugin {
 		try {
 			ActionBar actionBar = activity.getActionBar();
 			actionBar.hide();
-		} catch(Exception e) {
-			//do nothing	
+		} catch (Exception e) {
+			// do nothing
 		}
 	}
 
