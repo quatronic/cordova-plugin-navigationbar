@@ -237,7 +237,7 @@ public class NavigationBar extends CordovaPlugin {
 	}
 
 	private void _reset() {
-		int newVis = 0;
+		int newVis = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 		Activity activity = cordova.getActivity();
 		activity.getWindow().getDecorView().setSystemUiVisibility(newVis);
 	}
