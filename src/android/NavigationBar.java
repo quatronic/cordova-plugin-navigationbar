@@ -144,6 +144,24 @@ public class NavigationBar extends CordovaPlugin {
 			});
 
 			return true;
+		} else if (action.equals("showStatusAndNavBars")) {
+
+			final CallbackContext delayedCC = callbackContext;
+			cordova.getActivity().runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					_showStatusAndNavBars();
+
+					PluginResult pr = new PluginResult(PluginResult.Status.OK);
+					// pr.setKeepCallback(true);
+					delayedCC.sendPluginResult(pr);
+					// PluginResult pr = new PluginResult(PluginResult.Status.ERROR);
+					// pr.setKeepCallback(true);
+					// delayedCC.sendPluginResult(pr);
+				}
+			});
+
+			return true;
 		}
 
 		return false; // Returning false results in a "MethodNotFound" error.
@@ -236,8 +254,14 @@ public class NavigationBar extends CordovaPlugin {
 		decorView.setSystemUiVisibility(uiOptions);
 	}
 
-	private void _reset() {
+	private void _showStatusAndNavBars() {
 		int newVis = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+		Activity activity = cordova.getActivity();
+		activity.getWindow().getDecorView().setSystemUiVisibility(newVis);
+	}
+
+	private void _reset() {
+		int newVis = View.SYSTEM_UI_FLAG_VISIBLE;
 		Activity activity = cordova.getActivity();
 		activity.getWindow().getDecorView().setSystemUiVisibility(newVis);
 	}

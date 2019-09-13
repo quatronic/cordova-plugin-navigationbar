@@ -44,5 +44,14 @@ module.exports = {
             'dimStatusAndNavBars',
             []
         ); 
+    },
+    showStatusAndNavBars: function(successCallback, errorCallback) {
+        cordova.exec(
+            successCallback,
+            errorCallback,
+            'NavigationBar',
+            'showStatusAndNavBars',
+            []
+        ); 
     }
 };
