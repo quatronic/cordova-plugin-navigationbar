@@ -219,7 +219,7 @@ public class NavigationBar extends CordovaPlugin {
 	private void _hideNavigationBar(boolean enableImmersiveSticky, boolean hideStatusBar) {
 		Activity activity = cordova.getActivity();
 		View decorView = activity.getWindow().getDecorView();
-		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
 		if (hideStatusBar) {
 			uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
 		}
