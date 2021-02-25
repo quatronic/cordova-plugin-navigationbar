@@ -218,6 +218,11 @@ public class NavigationBar extends CordovaPlugin {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void _hideNavigationBar(boolean enableImmersiveSticky, boolean hideStatusBar) {
 		Activity activity = cordova.getActivity();
+		//prevent keyboard from popping up
+		hideSoftKeyboard(View view){
+  		InputMethodManager imm =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+ 		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		//hide navigation and status bar
 		View decorView = activity.getWindow().getDecorView();
 		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
 		if (hideStatusBar) {
@@ -227,6 +232,7 @@ public class NavigationBar extends CordovaPlugin {
 			uiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 		}
 		decorView.setSystemUiVisibility(uiOptions);
+}
 	}
 
 	private void _hideStatusBar() {
