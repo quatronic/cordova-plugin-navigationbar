@@ -228,7 +228,6 @@ public class NavigationBar extends CordovaPlugin {
 		}
 		decorView.setSystemUiVisibility(uiOptions);
 	}
-	}
 
 	private void _hideStatusBar() {
 		Activity activity = cordova.getActivity();
