@@ -1,16 +1,16 @@
 {
-  "name": "cordova-plugin-navigationbar",
-  "version": "1.0.31",
+  "name": "com-quatronic-cordova-plugin-navigationbar",
+  "version": "0.0.1",
   "description": "hide and auto hide navigation bar.",
   "cordova": {
-    "id": "cordova-plugin-navigationbar",
+    "id": "com-quatronic-cordova-plugin-navigationbar",
     "platforms": [
       "android"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cranberrygame/cordova-plugin-navigationbar.git"
+    "url": "git+https://github.com/quatronic/cordova-plugin-navigationbar.git"
   },
   "keywords": [
     "cordova",
@@ -25,10 +25,10 @@
       "version": ">=3.0.0"
     }
   ],
-  "author": "cranberrygame",
+  "author": "quatronic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cranberrygame/cordova-plugin-navigationbar/issues"
+    "url": "https://github.com/quatronic/cordova-plugin-navigationbar/issues"
   },
-  "homepage": "https://github.com/cranberrygame/cordova-plugin-navigationbar#readme"
+  "homepage": "https://github.com/quatronic/cordova-plugin-navigationbar#readme"
 }
